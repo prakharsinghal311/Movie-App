@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
@@ -6,10 +6,6 @@ import "./App.css";
 function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [movies]);
 
   async function fetchMoviesHandler() {
     setIsLoading(true);
@@ -25,6 +21,7 @@ function App() {
       };
     });
     setMovies(transformedMovies);
+    setIsLoading(false);
   }
 
   return (
@@ -32,13 +29,11 @@ function App() {
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
-      {isLoading ? (
-        <button>loading</button>
-      ) : (
-        <section>
-          <MoviesList movies={movies} />
-        </section>
-      )}
+      <section>
+        {isLoading && <p>loading....</p>}
+        {!isLoading && movies.length === 0 && <p>No Movies Found.</p>}
+        {!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
+      </section>
     </React.Fragment>
   );
 }
