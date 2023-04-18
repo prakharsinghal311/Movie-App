@@ -40,10 +40,13 @@ function App() {
   }, []);
 
   useEffect(() => {
+    fetchMoviesHandler();
+  }, [fetchMoviesHandler]);
+
+  useEffect(() => {
     if (error) {
       var fetchId = setInterval(fetchMoviesHandler, 2000);
     }
-
     return () => clearInterval(fetchId);
   }, [fetchMoviesHandler, error]);
 
