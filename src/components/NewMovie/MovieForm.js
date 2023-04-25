@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./MovieForm.css";
 
-const MovieForm = () => {
+const MovieForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredOpening, setEnteredOpening] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
@@ -25,7 +25,7 @@ const MovieForm = () => {
       opening: enteredOpening,
       date: new Date(enteredDate),
     };
-    console.log(NewMovieObj);
+    props.saveMovieData(NewMovieObj);
   };
 
   return (
@@ -37,24 +37,30 @@ const MovieForm = () => {
           </label>
           &nbsp;
           <br />
+          <br />
           <input type="text" onChange={titleChangeHandler}></input>
           &nbsp;
+          <br />
           <br />
           <label>
             <b>Opening Text</b>
           </label>
           &nbsp;
           <br />
+          <br />
           <input type="text" onChange={openingTextChangeHandler}></input>
           &nbsp;
+          <br />
           <br />
           <label>
             <b>Release Date</b>
           </label>
           &nbsp;
           <br />
+          <br />
           <input type="date" onChange={releaseDateChangeHandler}></input>
           &nbsp;
+          <br />
           <br />
           <button type="submit">Add Movie</button>
         </form>
