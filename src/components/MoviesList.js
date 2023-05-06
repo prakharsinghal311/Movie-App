@@ -19,6 +19,7 @@ const MovieList = (props) => {
             openingText={movie.openingText}
             movieId={movie.id}
             saveDeleteState={saveDeleteStateHandler}
+            deleteMovie={props.deleteMovie}
           />
         ))}
       </ul>

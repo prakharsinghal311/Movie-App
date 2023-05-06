@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import MoviesList from "./components/MoviesList";
 import "./App.css";
 import MovieForm from "./components/NewMovie/MovieForm";
+import axios from "axios";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -72,6 +73,20 @@ function App() {
     deleteValue = deleteState;
   };
 
+  const deleteMovie = async (movieId) => {
+    try {
+      await axios.delete(
+        `https://react-http-41d8a-default-rtdb.firebaseio.com/movies/${movieId}.json`
+      );
+      const newMovies = movies.filter((movie) =>
+        movie.id === movieId ? false : true
+      );
+      setMovies([...newMovies]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   let content = <p>Found No Movies.</p>;
 
   if (movies.length > 0) {
@@ -79,6 +94,7 @@ function App() {
       <MoviesList
         movies={movies}
         deleteStateFunction={deleteStateFunctionHandler}
+        deleteMovie={deleteMovie}
       />
     );
   }
